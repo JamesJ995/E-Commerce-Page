@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
   // be sure to include its associated Products
   try {
     const categoryData = await Category.findAll({
-      include: [{ model: Product, as: "product_category" }],
+      include: [{ model: Product }],
     });
     res.status(200).json(categoryData);
   } catch (err) {
@@ -22,7 +22,7 @@ router.get("/:id", async (req, res) => {
   try {
     const categoryData = await Category.findByPk(req.params.id, {
       // JOIN with travellers, using the Trip through table
-      include: [{ model: Product, as: "product_category" }],
+      include: [{ model: Product }],
     });
 
     if (!categoryData) {
@@ -65,7 +65,7 @@ router.put("/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   // delete a category by its `id` value
   try {
     const categoryData = await Category.destroy({
