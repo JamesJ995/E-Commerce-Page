@@ -56,9 +56,9 @@ router.put('/:id', (req, res) => {
       },
     }
   )
-    .then((updatedCategory) => {
+    .then(() => {
       // Sends the updated book as a json response
-      res.json(updatedCategory);
+      res.json(req.body);
     })
     .catch((err) => res.json(err));
 });
